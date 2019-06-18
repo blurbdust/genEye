@@ -4,6 +4,7 @@ I got really tired of formatting masscan results for EyeWitness so I made a litt
 It also will take in CIDR notation if you want to skip port scanning. This defaults to standard ports for each service EyeWitness supports. 
 
 `--outfile` is optional and will output to the screen by default
+
 `--masscan` is the file with masscan output. See `tests/` for examples.
 
 ```
