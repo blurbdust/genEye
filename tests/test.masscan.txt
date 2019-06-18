@@ -1,0 +1,8 @@
+Discovered open port 443/tcp on 192.168.1.0
+Discovered open port 80/tcp on 192.168.1.0
+Discovered open port 8080/tcp on 192.168.1.0
+Discovered open port 8443/tcp on 192.168.1.0
+Discovered open port 3389/tcp on 192.168.1.0
+Discovered open port 463/tcp on 192.168.1.0
+Discovered open port 493/tcp on 192.168.1.0
+Discovered open port 403/tcp on 192.168.1.0
