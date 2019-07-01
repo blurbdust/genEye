@@ -133,7 +133,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(
 		formatter_class=argparse.RawDescriptionHelpFormatter,
 		description='Process a list or range of IPs to match EyeWitness\'s format', 
-		epilog=textwrap.dedent('''Examples:\npython3 genEye.py 192.168.1.0/24 192.168.2.0/24 --https --http\npython3 genEye.py --masscan tests/test.masscan.txt --outfile out.txt''')
+		epilog=textwrap.dedent('''Examples:\npython3 genEye.py 192.168.1.0/24 192.168.2.0/24 --https --http\npython3 genEye.py --masscan tests/test.masscan.txt --outfile out.txt\npython3 genEye.py --raw ips.txt --outfile formatted.ips.txt --http --https''')
 		)
 	parser.add_argument('--masscan', dest='load_file', help='Load list of IPs from a masscan ouput')
 	parser.add_argument('--raw', dest='load_file_raw', help='Load list of IPs from a file')
