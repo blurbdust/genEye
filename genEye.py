@@ -109,7 +109,7 @@ def process_ips(outfile, http, https, rdp, vnc):
 	if (outfile != None):
 		with open(outfile, "w") as out:
 			for arg in args.ip:
-				for ip in ipaddress.IPv4Network(arg):
+				for ip in ipaddress.IPv4Network(arg, False):
 					# saving output to file
 					# don't thrash io 
 					count += 1
@@ -125,7 +125,7 @@ def process_ips(outfile, http, https, rdp, vnc):
 			out.write(buf)
 	else:
 		for arg in args.ip:
-			for ip in ipaddress.IPv4Network(arg):
+			for ip in ipaddress.IPv4Network(arg, False):
 				print(ip_options(ip, http, https, rdp, vnc)[:-1])
 	#print("yee")
 
