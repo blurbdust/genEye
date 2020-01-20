@@ -30,14 +30,14 @@ def process_masscan(filename, outfile):
 			
 			lin = line.split(" ")
 
-			#print(lin)
-			ip = str(lin[5]).replace("\n", "")
-			port = str(str(lin[3]).split("/")[0])
+			# 1 is ip, 3 contains port
+			ip = str(lin[1]).replace("\n", "")
+			port = str(str(lin[4]).split("/")[0])
 
 			if ("80" in port):
 				#cur += "http://"
 				http = True
-			elif ("443" in port):
+			elif ("43" in port):
 				#cur += "https://"
 				https = True
 			elif ("3389" in port):
@@ -66,7 +66,7 @@ def process_masscan(filename, outfile):
 		else:
 			print(buf[:-1])
 
-def ip_options(ip, http, https, rdp, vnc):
+def ip_options(ip, http, https, rdp, vnc, none_):
 	ret = ""
 	if (http != None):
 		ret += "http://" + str(ip) + ":80/\n"
@@ -76,9 +76,11 @@ def ip_options(ip, http, https, rdp, vnc):
 		ret += "rdp://" + str(ip) + ":3389\n"
 	if (vnc != None):
 		ret += "vnc://" + str(ip) + ":5001\n"
+	if (none_ != None):
+		ret += str(ip) + "\n"
 	return ret
 
-def process_raw_file(infile, outfile, http, https, rdp, vnc):
+def process_raw_file(infile, outfile, http, https, rdp, vnc, none_):
 	cur = ""
 	buf = ""
 	count = 0
@@ -91,7 +93,7 @@ def process_raw_file(infile, outfile, http, https, rdp, vnc):
 					count += 1
 
 					#print(line)
-					cur = ip_options(line, http, https, rdp, vnc)
+					cur = ip_options(line, http, https, rdp, vnc, none_)
 
 					buf += cur
 					cur = ""
@@ -102,7 +104,7 @@ def process_raw_file(infile, outfile, http, https, rdp, vnc):
 			out.write(buf)
 
 
-def process_ips(outfile, http, https, rdp, vnc):
+def process_ips(outfile, http, https, rdp, vnc, none_):
 	cur = ""
 	buf = ""
 	count = 0
@@ -114,7 +116,7 @@ def process_ips(outfile, http, https, rdp, vnc):
 					# don't thrash io 
 					count += 1
 
-					cur = ip_options(ip, http, https, rdp, vnc)
+					cur = ip_options(ip, http, https, rdp, vnc, none_)
 
 					buf += cur
 					cur = ""
@@ -126,7 +128,7 @@ def process_ips(outfile, http, https, rdp, vnc):
 	else:
 		for arg in args.ip:
 			for ip in ipaddress.IPv4Network(arg, False):
-				print(ip_options(ip, http, https, rdp, vnc)[:-1])
+				print(ip_options(ip, http, https, rdp, vnc, none_)[:-1])
 	#print("yee")
 
 if __name__ == '__main__':
@@ -143,6 +145,7 @@ if __name__ == '__main__':
 	parser.add_argument('--https', dest='https', const=sum, nargs='?', help='Used with ip or --raw, prepends https and postpends port 443')
 	parser.add_argument('--rdp', dest='rdp', const=sum, nargs='?', help='Used with ip or --raw, prepends rdp and postpends port 3389')
 	parser.add_argument('--vnc', dest='vnc', const=sum, nargs='?', help='Used with ip or --raw, prepends vnc and postpends port 5001')
+	parser.add_argument('--none', dest='none_', const=sum, nargs='?', help='Used with ip or --raw, prepends nothing')
 
 	args = parser.parse_args()
 
@@ -154,12 +157,12 @@ if __name__ == '__main__':
 		#print("Parsing masscan file...")
 		process_masscan(args.load_file, args.out_file)
 	elif (args.load_file_raw != None):
-		if ((args.http == None) and (args.https == None) and (args.rdp == None) and (args.vnc == None)):
+		if ((args.http == None) and (args.https == None) and (args.rdp == None) and (args.vnc == None) and (args.none_ == None)):
 			print("Please add arguments for http, https, rdp, or vnc.")
-		process_raw_file(args.load_file_raw, args.out_file, args.http, args.https, args.rdp, args.vnc)
+		process_raw_file(args.load_file_raw, args.out_file, args.http, args.https, args.rdp, args.vnc, args.none_)
 	elif (args.ip != []):
 		#print("Expanding IPs...")
-		process_ips(args.out_file, args.http, args.https, args.rdp, args.vnc)
+		process_ips(args.out_file, args.http, args.https, args.rdp, args.vnc, args.none_)
 		#print(args.expand(args.ip))
 	else:
 		parser.print_help()
