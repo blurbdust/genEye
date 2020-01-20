@@ -62,6 +62,10 @@ def process_nmap(filename, outfile):
 				cur = format_nmap(ip, port, http, https, rdp, vnc)
 				buf += cur
 				cur = ""
+				http = False
+				https = False
+				rdp = False
+				vnc = False
 
 				if ((count % 2000) == 0):
 					if (output != None):
@@ -267,10 +271,10 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(
 		formatter_class=argparse.RawDescriptionHelpFormatter,
 		description='Process a list or range of IPs to match EyeWitness\'s format', 
-		epilog=textwrap.dedent('''Examples:\npython3 genEye.py 192.168.1.0/24 192.168.2.0/24 --https --http\npython3 genEye.py --masscan tests/test.masscan.txt --outfile out.txt\npython3 genEye.py --namp tests/test.nmap.txt --outfile out.txt''')
+		epilog=textwrap.dedent('''Examples:\npython3 genEye.py 192.168.1.0/24 192.168.2.0/24 --https --http\npython3 genEye.py --masscan tests/test.masscan.txt --outfile out.txt\npython3 genEye.py --nmap tests/test.nmap.txt --outfile out.txt''')
 		)
-	parser.add_argument('--masscan', dest='load_file', help='Load list of IPs from a file')
-	parser.add_argument('--nmap', dest='load_file_nmap', help='Load list of IPs from a file (nmap')
+	parser.add_argument('--masscan', dest='load_file', help='Load list of IPs from a file (masscan)')
+	parser.add_argument('--nmap', dest='load_file_nmap', help='Load list of IPs from a file (nmap)')
 	parser.add_argument('--shodan', dest='load_file_sho', help='Load list of IPs from a file (shodan)')
 	parser.add_argument('--raw', dest='load_file_raw', help='Load list of IPs from a file (raw)')
 	parser.add_argument('--outfile', dest='out_file', help='Output results to file')

@@ -1,0 +1,5 @@
+# Nmap 7.70 scan initiated Mon Jan 20 13:24:41 2020 as: nmap -p80,443,8000-9000 -iL ips.txt -oG nmap.web.txt -Pn -sS
+Host: 192.168.1.104 ()      Status: Up
+Host: 192.168.1.105 ()      Ports: 443/open/tcp//https///, 8801/open/tcp//unknown///        Ignored State: filtered (1001)
+# Nmap done at Mon Jan 20 14:11:40 2020 -- 16 IP addresses (2 hosts up) scanned in 2819.12 seconds
+
