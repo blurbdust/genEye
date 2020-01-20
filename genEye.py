@@ -7,9 +7,9 @@ def format_masscan(ip, port, http, https, rdp, vnc):
 	if (https):
 		ret += "https://" + str(ip) + ":" + port + "/\n"
 	if (rdp):
-		ret += "rdp://" + str(ip) + ":" + port + "/\n"
+		ret += "rdp://" + str(ip) + ":" + port + "\n"
 	if (vnc):
-		ret += "vnc://" + str(ip) + ":" + port + "/\n"
+		ret += "vnc://" + str(ip) + ":" + port + "\n"
 	return ret
 
 def process_masscan(filename, outfile):
@@ -80,15 +80,16 @@ def process_shodan(filename, outfile):
 		for line in f:
 			if ("#" in line):
 				continue
-			http = False
-			https = False
-			rdp = False
-			vnc = False
-			
+
 			ip 		= line.split(";")[0].split(":")[1].replace(" ", "")
 			ports 	= line.split(";")[1].split(":")[1].split(",")
 			
 			for port in ports:
+				http = False
+				https = False
+				rdp = False
+				vnc = False
+			
 				port = port.replace(" ", "").replace("\n", "").replace("\r", "")
 				if ("80" in port):
 					#cur += "http://"
