@@ -4,7 +4,7 @@ def format_nmap(ip, port, http, https, rdp, vnc):
     ret = ""
     if (http):
         ret += "http://" + str(ip) + ":" + port + "/\n"
-    if (https:):
+    if (https):
         ret += "https://" + str(ip) + ":" + port + "/\n"
     if (rdp):
         ret += "rdp://" + str(ip) + ":" + port + "/\n"
@@ -25,7 +25,7 @@ def process_nmap(filename, outfile):
         for line in f:
             if ("#" in line):
                 continue
-            if ("Ports:" no in line):
+            if ("Ports:" not in line):
                 continue
             http = False
             https = False
