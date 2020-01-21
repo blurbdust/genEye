@@ -215,24 +215,35 @@ def process_raw_file(infile, outfile, http, https, rdp, vnc, none_):
     cur = ""
     buf = ""
     count = 0
+    out = None
     if (outfile != None):
-        with open(outfile, "w") as out:
-            #print(infile)
-            with open(infile, "r") as infil:
-                for line in infil:
-                    line = line.replace("\n","").replace("\r","").replace("\t","")
+        out = open(outfile, "w")
+    
+    
+    with open(infile, "r") as infil:
+        for line in infil:
+            line = line.replace("\n","").replace("\r","").replace("\t","")
+            if ("/" in line):
+                for ip in ipaddress.IPv4Network(line):
                     count += 1
-
-                    #print(line)
-                    cur = ip_options(line, http, https, rdp, vnc, none_)
-
+                    cur = ip_options(ip, http, https, rdp, vnc, none_)
                     buf += cur
                     cur = ""
+            else:
+                count += 1
 
-                    if ((count % 2000) == 0):
-                        out.write(buf)
-                        buf = ""
+                cur = ip_options(line, http, https, rdp, vnc, none_)
+
+                buf += cur
+                cur = ""
+
+            if ((count % 2000) == 0):
+                out.write(buf)
+                buf = ""
+        if (out != None):
             out.write(buf)
+        else:
+            print(buf[:-1])
 
 def process_ips(outfile, http, https, rdp, vnc, none_):
     cur = ""
