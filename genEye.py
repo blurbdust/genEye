@@ -44,7 +44,7 @@ def process_nmap(filename, outfile):
                 if ("80" in port):
                     #cur += "http://"
                     http = True
-                elif ("443" in port):
+                elif ("43" in port):
                     #cur += "https://"
                     https = True
                 elif ("3389" in port):
