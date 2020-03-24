@@ -27,6 +27,8 @@ def process_nmap(filename, outfile):
                 continue
             if ("Ports:" not in line):
                 continue
+            if ("open" not in line):
+                continue
             http = False
             https = False
             rdp = False
@@ -35,8 +37,8 @@ def process_nmap(filename, outfile):
             lin = line.split(" ")
 
             ip = str(lin[1]).replace("\n", "").replace("\r", "").replace(" ", "")
-            #consume untiol we hit "Ports"
-            lin = line[line.index("Ports:") + len("Ports: "):]
+            #consume until we hit "Ports"
+            lin = line[line.index("Ports:") + len("Ports: ") : line.index("Ignored State:")]
             ports = str(str(lin).split("  ")[0]).split(" ")
             for port in ports:
                 port = port.split("/")[0]
