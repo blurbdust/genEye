@@ -163,6 +163,12 @@ def process_shodan(filename, outfile):
         for line in f:
             if ("#" in line):
                 continue
+            if ("here" in line):
+                continue
+            if ("interesting" in line):
+                continue
+            if ("Ports:" not in line):
+                continue
             
             ip = line.split(";")[0].split(":")[1].replace(" ", "")
             ports = line.split(";")[1].split(":")[1].split(",")
@@ -178,6 +184,9 @@ def process_shodan(filename, outfile):
                     #cur += "http://"
                     http = True
                 elif ("443" in port):
+                    #cur += "https://"
+                    https = True
+                elif ("3389" in port):
                     #cur += "rdp://"
                     rdp = True
                 elif ((int(port) < 5011) and (int(port) > 4999)):

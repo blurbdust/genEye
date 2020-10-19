@@ -1,0 +1,18 @@
+######################################################################
+IP and Port information listed here:
+IP: 127.0.0.1; Ports: 80
+IP: 127.0.0.2; Ports: 443
+IP: 127.0.0.3; Ports: 443
+IP: 127.0.0.4; Ports: 443
+IP: 127.0.0.5; Ports: 80, 443
+IP: 127.0.0.6; Ports: 443, 179
+IP: 127.0.0.7; Ports: 8008, 8010
+######################################################################
+Web server information listed here:
+IP: 127.0.0.1; IIS-Version: 8.0; Port: 80
+IP: 127.0.0.5; IIS-Version: 8.0; Port: 443
+IP: 127.0.0.5; IIS-Version: 8.0; Port: 80
+######################################################################
+Verified vulnerabilities listed here:
+######################################################################
+These IP addresses have interesting ports open:
