@@ -35,10 +35,12 @@ def process_nmap(filename, outfile):
             vnc = False
 
             lin = line.split(" ")
-
             ip = str(lin[1]).replace("\n", "").replace("\r", "").replace(" ", "")
             #consume until we hit "Ports"
-            lin = line[line.index("Ports:") + len("Ports: ") : line.index("Ignored State:")]
+            try:
+                lin = line[line.index("Ports:") + len("Ports: ") : line.index("Ignored State:")]
+            except ValueError:
+                lin = line[line.index("Ports:") + len("Ports: ") : ]
             ports = str(str(lin).split("  ")[0]).split(" ")
             for port in ports:
                 port = port.split("/")[0]
@@ -111,8 +113,9 @@ def process_masscan(filename, outfile):
             vnc = False
 
             lin = line.split(" ")
-
-            ip = str(lin[5]).replace("\n", "").replace("\r", "").replace(" ", "")
+            #print(lin)
+            #sys.exit(1)
+            ip = str(lin[1]).replace("\n", "").replace("\r", "").replace(" ", "")
             port = str(str(lin[3]).split("/")[0])
 
             if ("80" in port):
