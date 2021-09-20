@@ -77,7 +77,7 @@ def process_nmap(filename, outfile):
                     if (output != None):
                         output.write(buf)
                     buf = ""
-        
+
         if (output != None):
             output.write(buf)
         else:
@@ -117,7 +117,7 @@ def process_masscan(filename, outfile):
             lin = line.split(" ")
             #print(lin)
             #sys.exit(1)
-            ip = str(lin[1]).replace("\n", "").replace("\r", "").replace(" ", "")
+            ip = str(lin[5]).replace("\n", "").replace("\r", "").replace(" ", "")
             port = str(str(lin[3]).split("/")[0])
 
             if ("80" in port):
@@ -171,7 +171,7 @@ def process_shodan(filename, outfile):
                 continue
             if ("Ports:" not in line):
                 continue
-            
+
             ip = line.split(";")[0].split(":")[1].replace(" ", "")
             ports = line.split(";")[1].split(":")[1].split(",")
 
@@ -234,8 +234,8 @@ def process_raw_file(infile, outfile, http, https, rdp, vnc, none_):
     out = None
     if (outfile != None):
         out = open(outfile, "w")
-    
-    
+
+
     with open(infile, "r") as infil:
         for line in infil:
             line = line.replace("\n","").replace("\r","").replace("\t","")
