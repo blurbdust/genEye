@@ -43,6 +43,8 @@ def process_nmap(filename, outfile):
                 lin = line[line.index("Ports:") + len("Ports: ") : ]
             ports = str(str(lin).split("  ")[0]).split(" ")
             for port in ports:
+                if ("open" not in port):
+                    continue
                 port = port.split("/")[0]
 
                 if ("80" in port):
